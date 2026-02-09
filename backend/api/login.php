@@ -22,6 +22,9 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
+    $_SESSION['user_id'] = $row['id'];
+    $_SESSION['role'] = $row['role'];
+    $_SESSION['username'] = $row['username'];
     echo json_encode(["status" => "success", "user" => $row]);
 } else {
     echo json_encode(["status" => "error", "message" => "Invalid credentials"]);

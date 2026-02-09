@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Dashboard</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* Dashboard specific styles */
+        body.dashboard-body {
+            background-color: #f4f4f4;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            right: 0;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-right: 320px;
+            /* Space for sidebar */
+        }
+
+        .dashboard-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .remove-btn {
+            color: red;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .submit-order-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body class="dashboard-body">
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <nav class="dashboard-nav">
+            <div class="logo">
+                <img src="images/coffe_logo-removebg-preview.png" alt="Logo" height="50">
+                <span>Café POS</span>
+            </div>
+            <div class="user-info">
+                <span id="welcome-msg">Welcome, User</span>
+                <button id="logout-btn" class="btn" style="margin-left: 10px; padding: 5px 15px;">Logout</button>
+            </div>
+        </nav>
+
+        <h2>Menu Products</h2>
+        <!-- Filter/Category tabs could go here -->
+
+        <div class="product-grid">
+            <!-- Products will be injected locally or hardcoded for now based on index.html -->
+            <!-- Mock Data for now as requested from index.html -->
+            <div class="product-card" onclick="addToOrder('Coffee', 150)">
+                <img src="images/coffeeeee.png" alt="Coffee">
+                <h3>Coffee</h3>
+                <p>Price: $150</p>
+            </div>
+            <div class="product-card" onclick="addToOrder('Cake', 200)">
+                <img src="images/cake.png" alt="Cake">
+                <h3>Cake</h3>
+                <p>Price: $200</p>
+            </div>
+            <div class="product-card" onclick="addToOrder('Pizza', 250)">
+                <img src="images/pizza.png" alt="Pizza">
+                <h3>Pizza</h3>
+                <p>Price: $250</p>
+            </div>
+            <div class="product-card" onclick="addToOrder('Donut', 100)">
+                <img src="images/doubnut.png" alt="Donut">
+                <h3>Donut</h3>
+                <p>Price: $100</p>
+            </div>
+            <!-- Drinks -->
+            <div class="product-card" onclick="addToOrder('Iced Coffee', 180)">
+                <img src="images/soliman-cifuentes-mhad_4H6S14-unsplash-removebg-preview.png" alt="Iced Coffee">
+                <h3>Iced Coffee</h3>
+                <p>Price: $180</p>
+            </div>
+            <div class="product-card" onclick="addToOrder('Beer', 300)">
+                <img src="images/beer-3.png" alt="Beer">
+                <h3>Beer</h3>
+                <p>Price: $300</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar / Order Checklist -->
+    <div class="sidebar">
+        <h3>Current Order</h3>
+        <div class="form-group">
+            <label for="customer-name">Customer Name</label>
+            <input type="text" id="customer-name" class="form-control" placeholder="Enter Name"
+                style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        </div>
+        <div class="form-group">
+            <label for="table-number">Table No.</label>
+            <input type="number" id="table-number" class="form-control" placeholder="Table #"
+                style="width: 100%; padding: 8px; margin-bottom: 20px;">
+        </div>
+
+        <div id="order-list">
+            <!-- Order items will appear here -->
+            <p id="empty-msg" style="color: #888; text-align: center;">No items added yet.</p>
+        </div>
+
+        <div style="margin-top: 20px; border-top: 2px solid #ddd; padding-top: 10px;">
+            <h4>Total: $<span id="total-price">0</span></h4>
+        </div>
+
+        <button class="submit-order-btn" onclick="submitOrder()">Place Order</button>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>
