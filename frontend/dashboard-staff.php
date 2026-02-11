@@ -404,7 +404,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'staff') {
             const grid = document.getElementById('menu-grid');
             grid.innerHTML = items.map(item => `
                 <div class="menu-item" onclick="addToCart(${item.id})">
-                    <img src="${item.image_url}" alt="${item.name}" onerror="this.src='images/default_food.png'">
+                    <img src="${item.image_url.startsWith('backend/') ? '../'+item.image_url : item.image_url}" alt="${item.name}" onerror="this.src='images/default_food.png'">
                     <h4>${item.name}</h4>
                     <p>$${item.price}</p>
                     <button class="btn" style="margin-top: 5px; padding: 5px 15px; font-size: 0.8rem;">Add</button>
@@ -442,7 +442,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'staff') {
                 return `
                 <div class="order-item">
                     <div style="display:flex; align-items:center; gap: 10px;">
-                        <img src="${item.image_url}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 5px;" onerror="this.src='images/default_food.png'">
+                        <img src="${item.image_url.startsWith('backend/') ? '../'+item.image_url : item.image_url}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 5px;" onerror="this.src='images/default_food.png'">
                         <div>
                             <strong>${item.name}</strong><br>
                             <span style="font-size: 0.8rem; color: #666;">$${item.price}</span>

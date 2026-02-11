@@ -52,7 +52,7 @@
       </ul>
     </div>
 
-    <div class="login-button-container">
+    <div class="login-button-container" id="auth-btn-container">
       <button class="login-button"> <a href="login-form.html">Login</a></button>
     </div>
   </navbar>
@@ -654,6 +654,30 @@
         </div>
       </div>
     </footer>
+    </footer>
+    <script>
+      async function checkAuth() {
+        try {
+          const res = await fetch('../backend/api/check_auth.php');
+          if (res.ok) {
+            const data = await res.json();
+            if (data.status === 'authenticated') {
+              const role = data.user.role;
+              let dashboardUrl = '#';
+              if (role === 'admin') dashboardUrl = 'dashboard-admin.php';
+              else if (role === 'staff') dashboardUrl = 'dashboard-staff.php';
+              else if (role === 'kitchen') dashboardUrl = 'dashboard-kitchen.php';
+
+              const container = document.getElementById('auth-btn-container');
+              container.innerHTML = `<button class="login-button" style="width:auto; padding: 0 20px;"> <a href="${dashboardUrl}">Dashboard</a></button>`;
+            }
+          }
+        } catch (e) {
+          console.error("Auth check failed", e);
+        }
+      }
+      checkAuth();
+    </script>
 </body>
 
 </html>

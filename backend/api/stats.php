@@ -15,7 +15,7 @@ if ($action === 'dashboard_stats') {
     $todayOrders = $stmt->fetchColumn();
 
     // Staff Performance (Orders per staff today)
-    $stmt = $pdo->query("SELECT u.username, COUNT(o.id) as order_count 
+    $stmt = $pdo->query("SELECT u.username, COUNT(o.id) as order_count, SUM(o.total_amount) as revenue 
                          FROM orders o 
                          JOIN users u ON o.user_id = u.id 
                          WHERE DATE(o.created_at) = CURDATE() 

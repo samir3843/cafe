@@ -21,15 +21,42 @@ if ($method === 'GET') {
     $data = json_decode(file_get_contents('php://input'), true);
     
     if ($action === 'add') {
-        // Admin only - assume auth check is done in frontend or middleware (simplified here)
-        $name = $data['name'];
-        $categoryId = $data['category_id'];
-        $price = $data['price'];
-        $image = $data['image_url'] ?? 'images/default_food.png';
-        
+        $name = $_POST['name'] ?? '';
+        $categoryId = $_POST['category_id'] ?? '';
+        $price = $_POST['price'] ?? '';
+        $imagePath = 'images/default_food.png';
+
+        // File Upload Logic
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../uploads/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            
+            $fileTmpPath = $_FILES['image']['tmp_name'];
+            $fileName = $_FILES['image']['name'];
+            $fileSize = $_FILES['image']['size'];
+            $fileType = $_FILES['image']['type'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+
+            $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg', 'webp');
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                $dest_path = $uploadDir . $newFileName;
+
+                if(move_uploaded_file($fileTmpPath, $dest_path)) {
+                    $imagePath = 'backend/uploads/' . $newFileName; // Relative path for frontend
+                }
+            }
+        } else {
+             // If image_url is passed as text (fallback or update later if needed)
+             $imagePath = $_POST['image_url'] ?? 'images/default_food.png';
+        }
+
         $stmt = $pdo->prepare("INSERT INTO menu (name, category_id, price, image_url) VALUES (?, ?, ?, ?)");
-        if ($stmt->execute([$name, $categoryId, $price, $image])) {
-            echo json_encode(['success' => true, 'message' => 'Item added']);
+        if ($stmt->execute([$name, $categoryId, $price, $imagePath])) {
+            echo json_encode(['success' => true, 'message' => 'Item added successfully']);
         } else {
              echo json_encode(['success' => false, 'message' => 'Failed to add item']);
         }

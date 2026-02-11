@@ -212,7 +212,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'kitchen') {
                         return {
                             name: parts[0] || 'Unknown',
                             qty: parts[1] || '1',
-                            img: parts[2] || 'images/default_food.png'
+                            img: (parts[2] && parts[2].startsWith('backend/')) ? '../'+parts[2] : (parts[2] || 'images/default_food.png')
                         };
                     });
 

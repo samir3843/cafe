@@ -248,7 +248,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
                         <select id="new-item-category">
                             <option>Loading Categories...</option>
                         </select>
-                        <input type="text" id="new-item-image" placeholder="Image URL (e.g. images/cake.png)">
+                        <input type="file" id="new-item-image" accept="image/*">
                         <button onclick="addMenuItem()" class="btn">Add Item</button>
                     </div>
                 </div>
@@ -272,6 +272,20 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     
             <div id="users-section" style="display:none;">
                 <div class="section-card">
+                    <h3>Create New User</h3>
+                    <div class="form-row">
+                        <input type="text" id="new-user-name" placeholder="Username" style="text-transform: none;">
+                        <input type="password" id="new-user-pass" placeholder="Password">
+                        <select id="new-user-role">
+                            <option value="staff">Staff</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <button onclick="addUser()" class="btn">Create User</button>
+                    </div>
+                </div>
+
+                <div class="section-card">
                     <h3>System Users</h3>
                     <table id="users-table">
                         <thead>
@@ -280,6 +294,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
                                 <th>Role</th>
                                 <th>Created At</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -348,7 +363,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             const tbody = document.querySelector('#menu-table tbody');
             tbody.innerHTML = data.data.map(m => `
                 <tr>
-                    <td><img src="${m.image_url}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;" onerror="this.src='images/default_food.png'"></td>
+                    <td><img src="${m.image_url.startsWith('backend/') ? '../'+m.image_url : m.image_url}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;" onerror="this.src='images/default_food.png'"></td>
                     <td><strong>${m.name}</strong></td>
                     <td>${m.category_name}</td>
                     <td>$${m.price}</td>
@@ -361,13 +376,21 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             const name = document.getElementById('new-item-name').value;
             const price = document.getElementById('new-item-price').value;
             const category_id = document.getElementById('new-item-category').value;
-            const image_url = document.getElementById('new-item-image').value;
+            const imageInput = document.getElementById('new-item-image');
 
             if (!name || !price) return alert('Fill all fields');
 
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('price', price);
+            formData.append('category_id', category_id);
+            if (imageInput.files[0]) {
+                formData.append('image', imageInput.files[0]);
+            }
+
             await fetch('../backend/api/menu.php?action=add', {
                 method: 'POST',
-                body: JSON.stringify({ name, price, category_id, image_url })
+                body: formData
             });
             loadMenu();
             // Clear inputs
@@ -396,8 +419,45 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
                     <td><span style="background: ${u.role==='admin'?'var(--dropdown-bg)':(u.role==='kitchen'?'orange':'lightblue')}; padding: 2px 8px; border-radius: 4px; color: #333; font-size: 0.8rem;">${u.role}</span></td>
                     <td>${u.created_at}</td>
                     <td><span style="color: green;">Active</span></td>
+                     <td><button class="btn btn-small" style="background:var(--accent-color);" onclick="deleteUser(${u.id})">Delete</button></td>
                 </tr>
             `).join('');
+        }
+
+        async function addUser() {
+            const username = document.getElementById('new-user-name').value;
+            const password = document.getElementById('new-user-pass').value;
+            const role = document.getElementById('new-user-role').value;
+
+            if (!username || !password) return alert('Fill all fields');
+
+            const res = await fetch('../backend/api/users.php?action=create', {
+                method: 'POST',
+                body: JSON.stringify({ username, password: password, role })
+            });
+            const data = await res.json();
+            if (data.success) {
+                alert('User Created');
+                document.getElementById('new-user-name').value = '';
+                document.getElementById('new-user-pass').value = '';
+                loadUsers();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        }
+
+        async function deleteUser(id) {
+            if (!confirm('Are you sure?')) return;
+            const res = await fetch('../backend/api/users.php?action=delete', {
+                method: 'POST',
+                body: JSON.stringify({ id })
+            });
+            const data = await res.json();
+            if (data.success) {
+                loadUsers();
+            } else {
+                alert(data.message);
+            }
         }
 
         // Initial Load

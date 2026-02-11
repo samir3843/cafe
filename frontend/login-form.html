@@ -11,16 +11,6 @@
 <body class="login-body">
     <button class="return"><a href="index.html">return to home</a></button>
     <div class="login-container">
-        <!-- Form Toggle Controls -->
-        <input type="radio" id="login-toggle" name="form-toggle" checked>
-        <input type="radio" id="signup-toggle" name="form-toggle">
-
-        <!-- Toggle Labels -->
-        <div class="form-toggle">
-            <label for="login-toggle" class="login-label">Login</label>
-            <label for="signup-toggle" class="signup-label">Sign Up</label>
-        </div>
-
         <!-- Form Container -->
         <div class="form-container">
             <!-- Login Form -->
@@ -29,9 +19,7 @@
                 <h2 class="form-title">Welcome Back</h2>
 
                 <!-- Error Message Container -->
-                <div id="login-error" style="color: red; text-align: center; margin-bottom: 10px; display: none;"></div>
-                <div id="login-success" style="color: green; text-align: center; margin-bottom: 10px; display: none;">
-                </div>
+                <div id="login-error" style="color: red; text-align: center; margin-bottom: 20px; display: none;"></div>
 
                 <div class="form-group">
                     <label for="login-email">Username</label>
@@ -46,46 +34,6 @@
                 </div>
 
                 <button type="submit" class="btn">Login</button>
-
-                <div class="form-footer">
-                    <p>Forgot your password? <a href="#">Reset it</a></p>
-                </div>
-            </form>
-
-            <!-- Sign Up Form -->
-            <form class="signup-form" action="../backend/api/auth.php" method="POST">
-                <input type="hidden" name="action" value="register">
-                <h2 class="form-title">Create Account</h2>
-
-                <!-- Error Message Container -->
-                <div id="signup-error" style="color: red; text-align: center; margin-bottom: 10px; display: none;">
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-name">Full Name</label>
-                    <input type="text" id="signup-name" name="fullname" class="form-control"
-                        placeholder="Enter your full name" required style="text-transform: none;">
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-email">Username</label>
-                    <input type="text" id="signup-email" name="username" class="form-control"
-                        placeholder="Enter your username" required style="text-transform: none;">
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" name="password" class="form-control"
-                        placeholder="Create a password" required minlength="6" style="text-transform: none;">
-                </div>
-
-                <!-- Removed confirm password for simplicity in PHP POST flow, or verify in frontend js if needed. Kept simple for now. -->
-
-                <button type="submit" class="btn">Sign Up</button>
-
-                <div class="form-footer">
-                    <p>By signing up, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
-                </div>
             </form>
         </div>
     </div>
@@ -93,23 +41,10 @@
         // Check URL parameters for errors
         const urlParams = new URLSearchParams(window.location.search);
         const error = urlParams.get('error');
-        const success = urlParams.get('success');
-        const mode = urlParams.get('mode');
 
         if (error) {
-            if (mode === 'signup') {
-                document.getElementById('signup-error').innerText = error;
-                document.getElementById('signup-error').style.display = 'block';
-                document.getElementById('signup-toggle').checked = true;
-            } else {
-                document.getElementById('login-error').innerText = error;
-                document.getElementById('login-error').style.display = 'block';
-            }
-        }
-
-        if (success === 'registered') {
-            document.getElementById('login-success').innerText = "Registration successful! Please login.";
-            document.getElementById('login-success').style.display = 'block';
+            document.getElementById('login-error').innerText = error;
+            document.getElementById('login-error').style.display = 'block';
         }
     </script>
 </body>
