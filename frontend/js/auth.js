@@ -10,37 +10,31 @@ document.addEventListener('DOMContentLoaded', function () {
     if (loginForm) {
         loginForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            const username = document.querySelector('#login-email').value;
+            const email = document.querySelector('#login-email').value; // Using email field as username
             const password = document.querySelector('#login-password').value;
 
-            if (!username || !password) {
+            if (!email || !password) {
                 alert("Please fill in all fields.");
                 return;
             }
 
-            fetch('../backend/api/login.php', {
+            fetch('../backend/api/auth.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username: username, password: password })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'login', email: email, password: password })
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Server returned ' + response.status);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    if (data.status === 'success') {
-                        window.location.href = 'dashboard.html';
+                    if (data.success) {
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        window.location.href = data.redirect;
                     } else {
                         alert('Login failed: ' + (data.message || 'Unknown error'));
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert("Login Error: " + error.message + "\n\nMake sure XAMPP is running and you are accessing via http://localhost/");
+                    alert("Login Error: " + error.message);
                 });
         });
     }
@@ -49,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
         signupForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const fullname = document.querySelector('#signup-name').value;
-            // const username = document.querySelector('#signup-username').value; // User removed this field
             const email = document.querySelector('#signup-email').value;
             const password = document.querySelector('#signup-password').value;
             const confirmPassword = document.querySelector('#signup-confirm').value;
@@ -59,33 +52,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            if (!fullname || !email || !password) {
-                alert("Please fill in all fields.");
-                return;
-            }
-
-            fetch('../backend/api/signup.php', {
+            fetch('../backend/api/auth.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    username: email, // Use email as username
+                    action: 'register',
+                    username: email,
                     password: password,
-                    fullname: fullname,
-                    email: email
+                    fullname: fullname
                 })
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Server returned ' + response.status);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    if (data.status === 'success') {
+                    if (data.success) {
                         alert('Signup successful! Please login.');
-                        // Switch to login tab or reload logic could go here, for now redirect or reload
                         window.location.reload();
                     } else {
                         alert('Signup failed: ' + (data.message || 'Unknown error'));
@@ -93,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert("Signup Error: " + error.message + "\n\nMake sure XAMPP is running and you are accessing via http://localhost/");
+                    alert("Signup Error: " + error.message);
                 });
         });
     }

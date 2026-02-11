@@ -1,0 +1,10 @@
+[11-Feb-2026 14:38:57 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\web-cafee\backend\api\login.php on line 16
+[11-Feb-2026 14:38:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in C:\xampp\htdocs\web-cafee\backend\api\login.php:16
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\web-cafee\backend\api\login.php on line 16
+[11-Feb-2026 14:39:19 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\web-cafee\backend\api\signup.php on line 16
+[11-Feb-2026 14:39:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in C:\xampp\htdocs\web-cafee\backend\api\signup.php:16
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\web-cafee\backend\api\signup.php on line 16
