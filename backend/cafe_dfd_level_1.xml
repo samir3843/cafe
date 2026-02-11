@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-02-12T00:00:00.000Z" agent="Agent" etag="W_0" version="21.0.0" type="device">
+  <diagram id="cafe-dfd-1" name="DFD Level 1">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- External Entities -->
+        <mxCell id="ent_admin" value="Admin" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ent_staff" value="Staff" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="250" width="100" height="50" as="geometry" />
+        </mxCell>
+        <!-- Replaced Customer with Kitchen/Chef for realism, or omitting if focusing on Admin/Staff flows -->
+        <mxCell id="ent_chef" value="Kitchen (Chef)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="450" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Processes -->
+        <mxCell id="proc_auth" value="1.0&#xa;User Authentication" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="250" y="140" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_order" value="2.0&#xa;Order Management" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="250" y="300" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_billing" value="3.0&#xa;Billing &amp; Payment" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="250" y="460" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_menu" value="4.0&#xa;Menu Management" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="500" y="40" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_reports" value="5.0&#xa;Reporting &amp; Sales" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="500" y="550" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Data Stores -->
+        <mxCell id="ds_users" value="D1: Users" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=0;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="400" y="165" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_menu" value="D2: Menu" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=0;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="640" y="65" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_orders" value="D3: Orders" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=0;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="400" y="325" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_payment" value="D4: Sales/Payments" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=0;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="400" y="485" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Flows: Authentication -->
+        <mxCell id="flow_admin_auth" style="endArrow=classic;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_admin" target="proc_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_staff_auth" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_staff" target="proc_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_auth_ds" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_auth" target="ds_users">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="targetPoint"/></mxGeometry>
+        </mxCell>
+         <mxCell id="flow_ds_auth" style="endArrow=classic;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;dashed=1;" edge="1" parent="1" source="ds_users" target="proc_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- Flows: Menu -->
+        <mxCell id="flow_admin_menu" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_admin" target="proc_menu">
+           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_menu_ds" style="endArrow=classic;html=1;" edge="1" parent="1" source="proc_menu" target="ds_menu">
+           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Staff reading menu -->
+         <mxCell id="flow_ds_menu_staff" style="endArrow=classic;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ds_menu" target="proc_order">
+           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="710" y="280"/><mxPoint x="380" y="280"/></Array></mxGeometry>
+        </mxCell>
+
+
+        <!-- Flows: Orders -->
+        <mxCell id="flow_staff_order" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_staff" target="proc_order">
+           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_order_ds" style="endArrow=classic;html=1;" edge="1" parent="1" source="proc_order" target="ds_orders">
+           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_order_chef" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_order" target="ent_chef">
+           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="300" y="420"/><mxPoint x="90" y="420"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Flows: Billing -->
+         <mxCell id="flow_staff_bill" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_staff" target="proc_billing">
+           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_billing_ds" style="endArrow=classic;html=1;" edge="1" parent="1" source="proc_billing" target="ds_payment">
+           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_order_billing" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="proc_order" target="proc_billing">
+           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Flows: Reports -->
+         <mxCell id="flow_reports" style="endArrow=classic;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_reports" target="ent_admin">
+           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="550" y="680"/><mxPoint x="750" y="680"/><mxPoint x="750" y="90"/><mxPoint x="140" y="90"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="flow_ds_sales_report" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ds_payment" target="proc_reports">
+           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_ds_order_report" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ds_orders" target="proc_reports">
+           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="550" y="350"/></Array></mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

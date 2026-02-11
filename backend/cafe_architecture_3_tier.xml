@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-02-12T00:00:00.000Z" agent="Agent" etag="W_0" version="21.0.0" type="device">
+  <diagram id="cafe-architecture-3-tier" name="3-Tier Architecture">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Layer Containers -->
+        <mxCell id="layer_presentation" value="Presentation Layer&#xa;(Frontend)" style="swimlane;html=1;startSize=23;horizontal=1;container=1;collapsible=0;rounded=0;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="680" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="layer_application" value="Application Layer&#xa;(Backend / Logic)" style="swimlane;html=1;startSize=23;horizontal=1;container=1;collapsible=0;rounded=0;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="680" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="layer_database" value="Database Layer&#xa;(Data Storage)" style="swimlane;html=1;startSize=23;horizontal=1;container=1;collapsible=0;rounded=0;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="80" y="480" width="680" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Presentation Layer Components -->
+        <mxCell id="ui_admin" value="Admin Dashboard&#xa;(Web Web)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_presentation">
+          <mxGeometry x="100" y="60" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ui_staff" value="Staff POS Interface&#xa;(Web App)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_presentation">
+          <mxGeometry x="270" y="60" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ui_kitchen" value="Kitchen/Chef Display&#xa;(Web App)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_presentation">
+          <mxGeometry x="440" y="60" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Application Layer Components -->
+        <mxCell id="mod_auth" value="Authentication&#xa;Module" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_application">
+          <mxGeometry x="40" y="50" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_users" value="User Management" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_application">
+          <mxGeometry x="40" y="120" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_menu" value="Menu Management" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_application">
+          <mxGeometry x="180" y="50" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_order" value="Order Management" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_application">
+          <mxGeometry x="320" y="50" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_billing" value="Billing &amp; Payment" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_application">
+          <mxGeometry x="320" y="120" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_reports" value="Reporting &amp; Analytics" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_application">
+          <mxGeometry x="500" y="50" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Database Layer Components -->
+        <mxCell id="db_users" value="Users Table" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_database">
+          <mxGeometry x="60" y="50" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db_menu" value="Menu Table" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_database">
+          <mxGeometry x="200" y="50" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db_orders" value="Orders Table" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_database">
+          <mxGeometry x="340" y="50" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db_details" value="Order Details&#xa;Table" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_database">
+          <mxGeometry x="460" y="50" width="80" height="60" as="geometry" />
+        </mxCell>
+         <!-- Merged Sales into Reports flow or conceptually separate table if strictly needed, but Schema usually implies Sales derived from Orders. I'll add Sales table as requested in prompt. -->
+        <mxCell id="db_sales" value="Sales/Payment" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="layer_database">
+          <mxGeometry x="580" y="50" width="80" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Relationships: Presentation <-> Application -->
+        <mxCell id="flow_ui_app" style="endArrow=classic;startArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="layer_application" target="layer_presentation">
+            <mxGeometry relative="1" as="geometry">
+                <mxPoint x="420" y="240" as="sourcePoint"/>
+                <mxPoint x="420" y="200" as="targetPoint"/>
+            </mxGeometry>
+        </mxCell>
+        
+        <!-- Relationships inner components (Abstract representation of flow) -->
+        <mxCell id="link_ui_admin" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="ui_admin" target="mod_auth">
+             <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+         <mxCell id="link_ui_staff" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="ui_staff" target="mod_order">
+             <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relationships: Application <-> Database -->
+         <mxCell id="flow_app_db" style="endArrow=classic;startArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="layer_database" target="layer_application">
+            <mxGeometry relative="1" as="geometry">
+                <mxPoint x="420" y="480" as="sourcePoint"/>
+                <mxPoint x="420" y="440" as="targetPoint"/>
+            </mxGeometry>
+        </mxCell>
+        
+        <!-- Relationships: DB Connections -->
+         <mxCell id="link_mod_users" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="mod_users" target="db_users">
+             <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_mod_menu" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="mod_menu" target="db_menu">
+             <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_mod_order" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="mod_order" target="db_orders">
+             <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

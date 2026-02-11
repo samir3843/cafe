@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-02-12T00:00:00.000Z" agent="Agent" etag="W_0" version="21.0.0" type="device">
+  <diagram id="cafe-system-use-cases" name="Cafe Usage">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- System Boundary -->
+        <mxCell id="system_boundary" value="Cafe Management System" style="shape=swimlane;html=1;startSize=23;horizontal=1;container=1;collapsible=0;rounded=0;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="450" height="920" as="geometry" />
+        </mxCell>
+
+        <!-- Use Cases: Shared -->
+        <mxCell id="uc_login" value="Login / Logout" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="155" y="40" width="140" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Use Cases: Admin -->
+        <mxCell id="uc_manage_users" value="Manage Users" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="155" y="130" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_manage_menu" value="Manage Menu" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="155" y="210" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_manage_settings" value="Manage Settings" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="155" y="290" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_view_reports" value="View Sales/Revenue&#xa;Reports" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="155" y="370" width="140" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Use Cases: Cashier -->
+        <mxCell id="uc_create_order" value="Create Order" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="80" y="480" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_add_items" value="Add Items to Order" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="280" y="480" width="140" height="70" as="geometry" />
+        </mxCell>
+        <!-- Include: Create -> Add Items -->
+        <mxCell id="rel_include_1" value="&lt;&lt;include&gt;&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="system_boundary" source="uc_create_order" target="uc_add_items">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_gen_bill" value="Generate Bill" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="80" y="570" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_calc_total" value="Calculate Total" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="280" y="570" width="140" height="70" as="geometry" />
+        </mxCell>
+        <!-- Include: Gen Bill -> Calc Total -->
+        <mxCell id="rel_include_2" value="&lt;&lt;include&gt;&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="system_boundary" source="uc_gen_bill" target="uc_calc_total">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_process_payment" value="Process Payment" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="80" y="660" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_update_sales" value="Update Sales Record" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="280" y="660" width="140" height="70" as="geometry" />
+        </mxCell>
+        <!-- Include: Payment -> Update Sales -->
+        <mxCell id="rel_include_3" value="&lt;&lt;include&gt;&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="system_boundary" source="uc_process_payment" target="uc_update_sales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_print_receipt" value="Print Receipt" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="155" y="740" width="140" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Use Cases: Chef -->
+        <mxCell id="uc_view_pending" value="View Pending Orders" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="155" y="820" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_update_status" value="Update Order Status" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="290" y="820" width="140" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Actors -->
+        <!-- Admin -->
+        <mxCell id="actor_admin" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Staff (Cashier) -->
+        <mxCell id="actor_staff" value="Staff (Cashier)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="600" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Chef -->
+        <mxCell id="actor_chef" value="Chef" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="850" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Customer (Optional) -->
+        <mxCell id="actor_customer" value="Customer" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="720" y="500" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Relationships -->
+        <!-- Admin Links -->
+        <mxCell id="link_admin_login" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_admin" target="uc_login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_admin_users" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_admin" target="uc_manage_users">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_admin_menu" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_admin" target="uc_manage_menu">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_admin_settings" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_admin" target="uc_manage_settings">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_admin_reports" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_admin" target="uc_view_reports">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Staff Links -->
+        <mxCell id="link_staff_login" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_staff" target="uc_login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_staff_create" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_staff" target="uc_create_order">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_staff_bill" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_staff" target="uc_gen_bill">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_staff_pay" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_staff" target="uc_process_payment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_staff_receipt" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_staff" target="uc_print_receipt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Chef Links -->
+        <mxCell id="link_chef_login" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_chef" target="uc_login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_chef_pending" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_chef" target="uc_view_pending">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_chef_status" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="actor_chef" target="uc_update_status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Customer Links (Optional, limited interaction in this diagram) -->
+        <mxCell id="link_cust_menu" style="endArrow=none;html=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="actor_customer" target="uc_manage_menu">
+           <mxGeometry relative="1" as="geometry"><mxPoint as="targetPoint" /></mxGeometry> 
+        </mxCell>
+        <!-- Suggesting Customer views menu, effectively reusing the Manage Menu node or should have separate 'View Menu'? -->
+        <!-- Requirement said: Customer Use Cases: View Menu, Place Order. 
+             If 'Manage Menu' is for Admin to Edit, Customer needs 'View Menu'. 
+             I'll add specific Customer nodes to be precise. -->
+             
+        <mxCell id="uc_view_menu" value="View Menu" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="system_boundary">
+          <mxGeometry x="280" y="380" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="link_cust_view_menu" style="endArrow=none;html=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="actor_customer" target="uc_view_menu">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

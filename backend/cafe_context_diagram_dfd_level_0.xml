@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-02-12T00:00:00.000Z" agent="Agent" etag="W_0" version="21.0.0" type="device">
+  <diagram id="cafe-context-dfd-0" name="Context DFD Level 0">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Central Process: Cafe Management System -->
+        <mxCell id="proc_system" value="0&#xa;Cafe Management&#xa;System" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="360" y="280" width="140" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- External Entities -->
+        <mxCell id="ent_admin" value="Admin" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ent_staff" value="Staff (Cashier)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ent_kitchen" value="Kitchen (Chef)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Data Flows: Admin <-> System -->
+        <mxCell id="flow_admin_in" value="Menu Updates, User Data, Settings" style="endArrow=classic;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_admin" target="proc_system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_admin_out" value="Sales Reports, Analytics" style="endArrow=classic;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_system" target="ent_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Data Flows: Staff <-> System -->
+        <mxCell id="flow_staff_in" value="Order Details,&#xa;Payment Status" style="endArrow=classic;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_staff" target="proc_system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_staff_out" value="Receipt/Bill Data,&#xa;Order Confirmation" style="endArrow=classic;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_system" target="ent_staff">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Data Flows: Kitchen <-> System -->
+        <mxCell id="flow_kitchen_in" value="Order Status Updates&#xa;(Ready/Cooking)" style="endArrow=classic;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_kitchen" target="proc_system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow_kitchen_out" value="Pending Order Details" style="endArrow=classic;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_system" target="ent_kitchen">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
