@@ -64,7 +64,9 @@ if ($method === 'POST') {
 } elseif ($method === 'GET') {
     if ($action === 'list_active') {
         // For Kitchen: pending or preparing
-        $stmt = $pdo->query("SELECT o.*, GROUP_CONCAT(CONCAT(m.name, ' (x', oi.quantity, ')') SEPARATOR ', ') as items_summary 
+        // Fetch items with details: name::quantity::image_url
+        $stmt = $pdo->query("SELECT o.*, 
+                             GROUP_CONCAT(CONCAT(m.name, '::', oi.quantity, '::', IFNULL(m.image_url, '')) SEPARATOR '||') as items_details 
                              FROM orders o 
                              JOIN order_items oi ON o.id = oi.order_id 
                              JOIN menu m ON oi.menu_id = m.id 
